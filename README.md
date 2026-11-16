@@ -55,14 +55,14 @@ The codebase is organized into four distinct decoupled tiers:
 
 ```mermaid
 flowchart TD
-    Client["Client Browser / REST Consumer"] -->|HTTP REST Requests| API["Flask REST Controller (app.py)"]
-    API -->|Validates Payload & Invocations| Domain["Domain Service (OrderTracker)"]
-    Domain -->|Storage Protocol (save / get / list)| Storage["Storage Adapter (InMemoryStorage)"]
-    Storage -->|Thread-Safe In-Memory Store| Dict[("Memory Dictionary & RLock")]
+    Client["Client Browser / REST Consumer"] -->|"HTTP REST Requests"| API["Flask REST Controller (app.py)"]
+    API -->|"Validates Payload & Invocations"| Domain["Domain Service (OrderTracker)"]
+    Domain -->|"Storage Protocol: save, get, list"| Storage["Storage Adapter (InMemoryStorage)"]
+    Storage -->|"Thread-Safe Memory Operations"| Dict[("In-Memory Store with RLock")]
 
-    subgraph Test Suites
-        UnitTests["Unit Tests (test_order_tracker.py)"] -->|Mock Storage Fixtures| Domain
-        IntegrationTests["Integration Tests (test_api.py)"] -->|Test Client Requests| API
+    subgraph Test_Suites["Test Suites"]
+        UnitTests["Unit Tests (test_order_tracker.py)"] -->|"Mock Storage Fixtures"| Domain
+        IntegrationTests["Integration Tests (test_api.py)"] -->|"Test Client Requests"| API
     end
 ```
 
